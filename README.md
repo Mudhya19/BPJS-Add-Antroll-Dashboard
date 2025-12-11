@@ -64,10 +64,18 @@ Dashboard interaktif untuk monitoring pendaftaran BPJS (Add Antroll) — analisi
 
 > Jika nama kolom berbeda, app akan mencoba otomatis merename kolom umum. Untuk variasi ekstrem, buka `streamlit.py` dan sesuaikan fungsi `unify_columns`.
 
-## Visual & Penjelasan (untuk presentasi)
+## S.M.A.R.T Questions (contoh)
+
+- **Spesifik**: Berapa persentase kegagalan BPJS di Poli X bulan ini?
+- **Terukur**: Berapa rata-rata waktu tunggu pendaftaran (detik/min)?
+- **Dapat dicapai**: Dapatkah mengurangi rate gagal 30% dalam 3 bulan?
+- **Relevan**: Apakah kegagalan terkait jam tertentu?
+- **Batas waktu**: Laporan mingguan untuk tindakan perbaikan.
+
+## Visualisasi Data
 
 1. **KPI header** — menampilkan total record, jumlah sukses, jumlah gagal, avg wait (jika ada).
-
+   
    - **Penjelasan**: Gambaran cepat kesehatan operasional registrasi BPJS.
 
 2. **Bar chart Status** — jumlah `sudah` vs `gagal`.
@@ -85,18 +93,10 @@ Dashboard interaktif untuk monitoring pendaftaran BPJS (Add Antroll) — analisi
 5. **Distribusi Umur** — melihat profil pasien.
    - **Penjelasan**: Memudahkan kebijakan pelayanan (mis. poli anak).
 
-## S.M.A.R.T Questions (contoh)
-
-- Spesifik: Berapa persentase kegagalan BPJS di Poli X bulan ini?
-- Terukur: Berapa rata-rata waktu tunggu pendaftaran (detik/min)?
-- Dapat dicapai: Dapatkah mengurangi rate gagal 30% dalam 3 bulan?
-- Relevan: Apakah kegagalan terkait jam tertentu?
-- Batas waktu: Laporan mingguan untuk tindakan perbaikan.
-
-## Lisensi
+<!-- ## Lisensi
 
 (opsional) Sesuaikan dengan kebijakan organisasi.
 
 ## Kontak / Kontributor
 
-Nama / email Anda.
+Nama / email Anda. -->
