@@ -33,7 +33,7 @@ def load_data():
     """
     try:
         # Load the dataset
-        df = pd.read_csv('database/data/bpjs antrol.csv')
+        df = pd.read_csv('database/data/bpjs antrol.csv', low_memory=False)
         
         # Convert date columns to datetime
         df['tgl_registrasi'] = pd.to_datetime(df['tgl_registrasi'], format='%d/%m/%Y', errors='coerce')
@@ -178,7 +178,7 @@ with tab1:
         'Missing Values': [df[col].isnull().sum() for col in df.columns],
         'Unique Values': [df[col].nunique() for col in df.columns]
     })
-    st.dataframe(data_info, use_container_width=True)
+    st.dataframe(data_info, width='stretch')
 
     # Missing values handling
     st.markdown("#### Cleaning Data - Penanganan Missing Values")
@@ -214,7 +214,6 @@ with tab1:
         # Show duplicate information BEFORE removing them
         duplicate_rows = df[duplicate_mask].sort_values('no_rawat')
         st.write(f"Data duplikat berdasarkan no_rawat:")
-        st.dataframe(duplicate_rows, use_container_width=True)
     else:
         st.success("🎉 Tidak ada data duplikat berdasarkan no_rawat dalam dataset!")
 
@@ -222,14 +221,19 @@ with tab1:
     df = df.drop_duplicates(subset=['no_rawat'], keep='first')
 
     st.success(f"✅ Berhasil memastikan setiap pasien hanya memiliki satu nomor registrasi (no_rawat). Jumlah data sekarang: {len(df)}")
+    st.dataframe(df, width='stretch')
 
 
     # Expandable section for detailed data types
-    with st.expander("📋 Info Tipe Data Lengkap"):
+    with st.expander("📋 Info Tipe Data Pasien BPJS Add Antroll"):
         buffer = pd.io.common.StringIO()
         df.info(buf=buffer)
         info_str = buffer.getvalue()
         st.text(info_str)
+        
+        # Add describe with all columns and styled
+        st.subheader("Statistik Deskriptif Semua Kolom")
+        st.dataframe(df.describe(include="all").style.background_gradient(cmap='RdPu'), width='stretch')
 
 # Tab 2: Ringkasan Statistik Deskriptif
 with tab2:
@@ -238,7 +242,7 @@ with tab2:
     numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
 
     if numeric_cols:
-        st.dataframe(df[numeric_cols].describe(), use_container_width=True)
+        st.dataframe(df[numeric_cols].describe(), width='stretch')
     else:
         st.info("Tidak ada kolom numerik dalam dataset untuk ditampilkan statistik deskriptifnya.")
 
@@ -247,10 +251,10 @@ with tab2:
     categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
 
     if categorical_cols:
-        for col in categorical_cols[1:3]:  # Display first 3 categorical columns to avoid clutter
+        for col in categorical_cols[0:3]:  # Display first 3 categorical columns to avoid clutter
             st.markdown(f"##### Kolom: {col}")
             value_counts = df[col].value_counts().head(10)  # Top 10 values
-            st.dataframe(value_counts, use_container_width=True)
+            st.dataframe(value_counts, width='stretch')
     else:
         st.info("Tidak ada kolom kategorikal dalam dataset.")
 
@@ -267,7 +271,7 @@ with tab2:
                 freq_table = df[col].value_counts().reset_index()
                 freq_table.columns = [col, 'Frekuensi']
                 freq_table['Persentase'] = (freq_table['Frekuensi'] / freq_table['Frekuensi'].sum()) * 100
-                st.dataframe(freq_table, use_container_width=True)
+                st.dataframe(freq_table, width='stretch')
     else:
         st.info("Tidak ada variabel kategorikal penting yang ditemukan dalam dataset.")
 
@@ -289,7 +293,7 @@ with tab2:
             zmin=-1, zmax=1
         )
         fig_corr.update_layout(height=500)
-        st.plotly_chart(fig_corr, use_container_width=True)
+        st.plotly_chart(fig_corr, width='stretch')
         
         # Show top correlations
         st.markdown("#### Korelasi Tertinggi")
@@ -306,7 +310,7 @@ with tab2:
                 'Pasangan Variabel': top_5_corr.index.map(lambda x: f"{x[0]} - {x[1]}"),
                 'Korelasi': top_5_corr.values
             })
-            st.dataframe(top_corr_df, use_container_width=True)
+            st.dataframe(top_corr_df, width='stretch')
         else:
             st.info("Tidak ada korelasi yang dapat dihitung antar variabel numerik.")
     else:
@@ -352,7 +356,7 @@ with tab2:
             color_discrete_sequence=px.colors.qualitative.Set3
         )
         fig_status.update_layout(showlegend=False)
-        st.plotly_chart(fig_status, use_container_width=True)
+        st.plotly_chart(fig_status, width='stretch')
 
     with col2:
         # Top 5 Poli by Total Registrations
@@ -367,7 +371,7 @@ with tab2:
             color_discrete_sequence=px.colors.qualitative.Set3
         )
         fig_poli.update_layout(showlegend=False)
-        st.plotly_chart(fig_poli, use_container_width=True)
+        st.plotly_chart(fig_poli, width='stretch')
 
     # Chart 2: Daily Trend
     st.subheader("📅 Tren Kunjungan Harian")
@@ -379,7 +383,7 @@ with tab2:
         title="Tren Kunjungan Harian",
         labels={'tgl_registrasi': 'Tanggal', 'count': 'Jumlah Kunjungan'}
     )
-    st.plotly_chart(fig_trend, use_container_width=True)
+    st.plotly_chart(fig_trend, width='stretch')
 
     # Chart 3: Status by Poli
     st.subheader("🏥 Status Registrasi per Poliklinik")
@@ -394,13 +398,13 @@ with tab2:
         barmode='group'
     )
     fig_status_poli.update_layout(xaxis_tickangle=-45)
-    st.plotly_chart(fig_status_poli, use_container_width=True)
+    st.plotly_chart(fig_status_poli, width='stretch')
 
     # Chart 4: Age Distribution (if age column exists) or Patient Distribution
     st.subheader("👥 Distribusi Pasien")
     if 'umur' in df.columns:
         fig_age = px.histogram(df, x='umur', nbins=30, title="Distribusi Umur Pasien")
-        st.plotly_chart(fig_age, use_container_width=True)
+        st.plotly_chart(fig_age, width='stretch')
     else:
         # Distribution by gender if available
         if 'jk' in df.columns or 'jenis_kelamin' in df.columns:
@@ -411,7 +415,7 @@ with tab2:
                 names=gender_counts.index,
                 title="Distribusi Jenis Kelamin Pasien"
             )
-            st.plotly_chart(fig_gender, use_container_width=True)
+            st.plotly_chart(fig_gender, width='stretch')
         else:
             # Show registration time distribution with 10-minute intervals
             # Convert time column to string format for grouping
@@ -419,7 +423,7 @@ with tab2:
             
             # Convert time strings to datetime and group into 10-minute intervals
             time_series = pd.to_datetime(df['jam_reg_str'], format='%H:%M:%S', errors='coerce')
-            df['jam_reg_10min'] = time_series.dt.floor('10T').dt.time.astype(str)
+            df['jam_reg_10min'] = time_series.dt.floor('10min').dt.time.astype(str)
             
             # Count occurrences of each 10-minute interval and sort by time
             time_counts = df['jam_reg_10min'].value_counts().sort_index()
@@ -436,7 +440,7 @@ with tab2:
             fig_time.update_layout(xaxis_tickangle=-45)
             
             # Display the chart in Streamlit
-            st.plotly_chart(fig_time, use_container_width=True)
+            st.plotly_chart(fig_time, width='stretch')
 
 # Tab 3: Exploratory Data Analysis (Deskriptif)
 with tab3:
@@ -461,7 +465,7 @@ with tab3:
                 color='count',
                 color_continuous_scale='viridis'
             )
-            st.plotly_chart(fig_hourly, use_container_width=True)
+            st.plotly_chart(fig_hourly, width='stretch')
         else:
             st.info("Kolom waktu registrasi tidak tersedia dalam dataset.")
 
@@ -480,7 +484,7 @@ with tab3:
                 color_continuous_scale='Blues'
             )
             fig_heatmap.update_layout(height=500)
-            st.plotly_chart(fig_heatmap, use_container_width=True)
+            st.plotly_chart(fig_heatmap, width='stretch')
         else:
             st.info("Kolom poliklinik atau status tidak tersedia dalam dataset.")
 
@@ -498,7 +502,7 @@ with tab3:
                 title="Tren Harian Berdasarkan Status Registrasi",
                 labels={'tgl_registrasi': 'Tanggal', 'count': 'Jumlah Registrasi'}
             )
-            st.plotly_chart(fig_daily_status, use_container_width=True)
+            st.plotly_chart(fig_daily_status, width='stretch')
         else:
             st.info("Kolom tanggal registrasi atau status tidak tersedia dalam dataset.")
 
@@ -520,7 +524,7 @@ with tab4:
             labels={'x': 'Nama Pasien', 'y': 'Jumlah Kunjungan'}
         )
         fig_high_visitors.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(fig_high_visitors, use_container_width=True)
+        st.plotly_chart(fig_high_visitors, width='stretch')
     else:
         st.write("Tidak ada pasien dengan ≥10 kunjungan dalam periode ini.")
     
@@ -535,7 +539,7 @@ with tab4:
             labels={'x': 'Jumlah', 'y': 'Keterangan Error'},
             orientation='h'
         )
-        st.plotly_chart(fig_errors, use_container_width=True)
+        st.plotly_chart(fig_errors, width='stretch')
     else:
         st.write("Tidak ada data error dalam periode ini.")
 
@@ -545,7 +549,7 @@ with tab5:
     st.subheader("❌ Daftar Pasien Gagal")
     failed_patients = df[df['status'] == 'Gagal'][['tgl_registrasi', 'nm_pasien', 'nm_poli', 'keterangan', 'USER']]
     if not failed_patients.empty:
-        st.dataframe(failed_patients, use_container_width=True)
+        st.dataframe(failed_patients, width='stretch')
         
         # Download button for failed patients
         csv = failed_patients.to_csv(index=False)
@@ -560,7 +564,7 @@ with tab5:
     
     # Raw data table (optional)
     with st.expander("📋 Lihat Data"):
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(df, width='stretch')
         
         # Download button for raw data
         csv = df.to_csv(index=False)

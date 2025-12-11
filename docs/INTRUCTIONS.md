@@ -14,22 +14,22 @@ Di bawah ini ada:
 
 ## 1. Siapa pengguna utama dashboard
 
-* **Direktur Rumah Sakit / Kepala Rumah Sakit** — butuh ringkasan kinerja, rasio keberhasilan pendaftaran BPJS, tren waktu.
-* **Kepala Bagian / Kepala Bidang (Administrasi/Registrasi)** — butuh metrik operational (gagal vs sukses, waktu antre, poli bermasalah).
-* **Staf Administrasi Registrasi** — butuh daftar pasien gagal, rincian error, filter per poli / tanggal untuk tindakan perbaikan.
-* **Dokter & Kepala Poli** — butuh jumlah kunjungan per poli, pola pasien berulang (10+ kunjungan).
-* **Manajemen IT / Developer** — butuh log / data quality untuk debugging antroll failures.
-* (Opsional) **Publik / Stakeholder** — ringkasan agregat (tanpa data pribadi) sebagai KPI.
+- **Direktur Rumah Sakit / Kepala Rumah Sakit** — butuh ringkasan kinerja, rasio keberhasilan pendaftaran BPJS, tren waktu.
+- **Kepala Bagian / Kepala Bidang (Administrasi/Registrasi)** — butuh metrik operational (gagal vs sukses, waktu antre, poli bermasalah).
+- **Staf Administrasi Registrasi** — butuh daftar pasien gagal, rincian error, filter per poli / tanggal untuk tindakan perbaikan.
+- **Dokter & Kepala Poli** — butuh jumlah kunjungan per poli, pola pasien berulang (10+ kunjungan).
+- **Manajemen IT / Developer** — butuh log / data quality untuk debugging antroll failures.
+- (Opsional) **Publik / Stakeholder** — ringkasan agregat (tanpa data pribadi) sebagai KPI.
 
 ## 2. Kebutuhan informasi (ringkas)
 
-* Rasio **SUKSES (Sudah)** vs **GAGAL** pendaftaran BPJS Add Antroll.
-* Jumlah pasien per hari / minggu / bulan (tren).
-* Top poliklinik dengan jumlah kegagalan.
-* Daftar pasien dengan >10 kunjungan (identifikasi pola).
-* Distribusi umur, jenis kelamin, dan waktu pendaftaran (peak hours).
-* Kemampuan filtering: rentang tanggal, poli, status, dsb.
-* Tabel raw + download CSV untuk tindak lanjut.
+- Rasio **SUKSES (Sudah)** vs **GAGAL** pendaftaran BPJS Add Antroll.
+- Jumlah pasien per hari / minggu / bulan (tren).
+- Top poliklinik dengan jumlah kegagalan.
+- Daftar pasien dengan >10 kunjungan (identifikasi pola).
+- Distribusi umur, jenis kelamin, dan waktu pendaftaran (peak hours).
+- Kemampuan filtering: rentang tanggal, poli, status, dsb.
+- Tabel raw + download CSV untuk tindak lanjut.
 
 ---
 
@@ -39,27 +39,27 @@ Di bawah ini ada:
 
 **Indikator utama (widgets / KPI cards):**
 
-* Total record (jumlah baris)
-* Total Sukses / Gagal (count & persentase)
-* Rata-rata waktu antre jika tersedia (mean)
-* Top 5 poli (by total kunjungan)
-* Jumlah pasien yang punya >= 10 kunjungan
+- Total record (jumlah baris)
+- Total Sukses / Gagal (count & persentase)
+- Rata-rata waktu antre jika tersedia (mean)
+- Top 5 poli (by total kunjungan)
+- Jumlah pasien yang punya >= 10 kunjungan
 
 **Visualisasi:**
 
-* Bar chart: jumlah **Sukses vs Gagal** (filterable).
-* Line chart: tren **kunjungan harian / mingguan**.
-* Bar chart: **Top poli** (total kunjungan & gagal).
-* Histogram / boxplot: **Distribusi umur**.
-* Table interaktif: daftar pasien gagal (download).
-* (Opsional) Heatmap jam-hari: peak registration hours (jika ada waktu).
+- Bar chart: jumlah **Sukses vs Gagal** (filterable).
+- Line chart: tren **kunjungan harian / mingguan**.
+- Bar chart: **Top poli** (total kunjungan & gagal).
+- Histogram / boxplot: **Distribusi umur**.
+- Table interaktif: daftar pasien gagal (download).
+- (Opsional) Heatmap jam-hari: peak registration hours (jika ada waktu).
 
 **Interaktivitas:**
 
-* Filter rentang tanggal (Streamlit `date_input`).
-* Filter poli (multiselect).
-* Dropdown memilih mode EDA: *Deskriptif* atau *Lanjutan*.
-* Tombol export/download CSV.
+- Filter rentang tanggal (Streamlit `date_input`).
+- Filter poli (multiselect).
+- Dropdown memilih mode EDA: _Deskriptif_ atau _Lanjutan_.
+- Tombol export/download CSV.
 
 ## 2. Dataset
 
@@ -87,6 +87,7 @@ Saya telah menganalisis sebagian dari dataset `bpjs antrol.csv`. Dataset ini ber
 20. `USER` - Nama user
 
 Dari sampel data yang saya lihat, terlihat bahwa:
+
 - Terdapat pasien yang mendaftar di berbagai poliklinik (SAR=Klinik Saraf, INT=Klinik Penyakit Dalam, KLT=Klinik Kulit & Kelamin, dll.)
 - Terdapat berbagai status pengiriman (Sudah, Gagal, Ambil Antrian)
 - Terdapat berbagai jenis kunjungan (1, 2, 3)
@@ -94,6 +95,7 @@ Dari sampel data yang saya lihat, terlihat bahwa:
 - Banyak keterangan error seperti "Rujukan tidak valid", "Terdapat duplikasi Kode Booking", "200: Ok.", dll.
 
 Data ini sangat cocok untuk menganalisis kinerja sistem antrean BPJS dan memberikan insight tentang efisiensi pendaftaran pasien di rumah sakit. Dataset ini memungkinkan kita untuk menganalisis berbagai aspek seperti:
+
 - Jumlah pasien yang berhasil/gagal mendaftar
 - Poliklinik dengan kunjungan terbanyak
 - Waktu dan frekuensi pendaftaran
@@ -122,7 +124,7 @@ numpy
 
 ```
 BPJS-Add-Antroll-Dashboard/
-├─ streamlit_app.py
+├─ streamlit.py
 ├─ bpjs_antrol.csv      # contoh dataset (jgn commit data sensitif)
 ├─ requirements.txt
 ├─ README.md
@@ -157,10 +159,10 @@ git push -u origin main
 python -m venv venv
 source venv/bin/activate   # atau venv\Scripts\activate di Windows
 pip install -r requirements.txt
-streamlit run streamlit_app.py
+streamlit run streamlit.py
 ```
 
-7. (Opsional) Deploy ke Streamlit Community Cloud: klik “New app”, hubungkan GitHub repo, pilih file `streamlit_app.py`, deploy.
+7. (Opsional) Deploy ke Streamlit Community Cloud: klik “New app”, hubungkan GitHub repo, pilih file `streamlit.py`, deploy.
 
 ---
 
@@ -173,6 +175,7 @@ streamlit run streamlit_app.py
 Dashboard interaktif untuk monitoring pendaftaran BPJS (Add Antroll) — analisis sukses vs gagal, tren kunjungan, top poli, dan pasien dengan kunjungan tinggi. Dibangun dengan Streamlit + Python.
 
 ## Fitur utama
+
 - Filter rentang tanggal, poli, status.
 - Visualisasi: bar chart (status), line chart (tren harian), bar chart top poli, histogram umur.
 - Mode EDA: Deskriptif & Lanjutan (pasien >=10 kunjungan, peak hours).
@@ -180,15 +183,18 @@ Dashboard interaktif untuk monitoring pendaftaran BPJS (Add Antroll) — analisi
 - Langkah wrangling otomatis untuk menormalkan kolom umum.
 
 ## File penting
-- `streamlit_app.py` — aplikasi Streamlit.
+
+- `streamlit.py` — aplikasi Streamlit.
 - `requirements.txt` — dependency.
 - `bpjs_antrol.csv` — dataset (contoh).
 
 ## Cara menjalankan (lokal)
+
 1. Clone repo:
    ```bash
    git clone https://github.com/USERNAME/BPJS-Add-Antroll-Dashboard.git
    cd BPJS-Add-Antroll-Dashboard
+   ```
 ````
 
 2. Setup env & install:
@@ -198,50 +204,55 @@ Dashboard interaktif untuk monitoring pendaftaran BPJS (Add Antroll) — analisi
    source venv/bin/activate   # Windows: venv\Scripts\activate
    pip install -r requirements.txt
    ```
+
 3. Run:
 
    ```bash
-   streamlit run streamlit_app.py
+   streamlit run streamlit.py
    ```
 
 ## Struktur data (kolom yang disarankan)
 
-* `no_rkm_medis` / `no_rawat`
-* `nm_pasien` / `nama_pasien`
-* `tgl_kunjungan` / `tanggal` / `created_at`
-* `poli` / `nama_poli`
-* `status` (nilai: 'sudah' / 'gagal')
-* `umur` (opsional)
-* `jk` / `jenis_kelamin` (opsional)
-* `waktu_antrol` / `waktu` (opsional)
+- `no_rkm_medis` / `no_rawat`
+- `nm_pasien` / `nama_pasien`
+- `tgl_kunjungan` / `tanggal` / `created_at`
+- `poli` / `nama_poli`
+- `status` (nilai: 'sudah' / 'gagal')
+- `umur` (opsional)
+- `jk` / `jenis_kelamin` (opsional)
+- `waktu_antrol` / `waktu` (opsional)
 
-> Jika nama kolom berbeda, app akan mencoba otomatis merename kolom umum. Untuk variasi ekstrem, buka `streamlit_app.py` dan sesuaikan fungsi `unify_columns`.
+> Jika nama kolom berbeda, app akan mencoba otomatis merename kolom umum. Untuk variasi ekstrem, buka `streamlit.py` dan sesuaikan fungsi `unify_columns`.
 
 ## Visual & Penjelasan (untuk presentasi)
 
 1. **KPI header** — menampilkan total record, jumlah sukses, jumlah gagal, avg wait (jika ada).
 
-   * **Penjelasan**: Gambaran cepat kesehatan operasional registrasi BPJS.
+   - **Penjelasan**: Gambaran cepat kesehatan operasional registrasi BPJS.
+
 2. **Bar chart Status** — jumlah `sudah` vs `gagal`.
 
-   * **Penjelasan**: Fokus mitigation pada kategori `gagal`.
+   - **Penjelasan**: Fokus mitigation pada kategori `gagal`.
+
 3. **Line chart Tren Harian** — jumlah kunjungan per hari.
 
-   * **Penjelasan**: Memantau tren & efek perubahan kebijakan/maintenance.
+   - **Penjelasan**: Memantau tren & efek perubahan kebijakan/maintenance.
+
 4. **Top Poli** — total kunjungan vs gagal per poli.
 
-   * **Penjelasan**: Identifikasi poli yang membutuhkan intervensi.
+   - **Penjelasan**: Identifikasi poli yang membutuhkan intervensi.
+
 5. **Distribusi Umur** — melihat profil pasien.
 
-   * **Penjelasan**: Memudahkan kebijakan pelayanan (mis. poli anak).
+   - **Penjelasan**: Memudahkan kebijakan pelayanan (mis. poli anak).
 
 ## S.M.A.R.T Questions (contoh)
 
-* Spesifik: Berapa persentase kegagalan BPJS di Poli X bulan ini?
-* Terukur: Berapa rata-rata waktu tunggu pendaftaran (detik/min)?
-* Dapat dicapai: Dapatkah mengurangi rate gagal 30% dalam 3 bulan?
-* Relevan: Apakah kegagalan terkait jam tertentu?
-* Batas waktu: Laporan mingguan untuk tindakan perbaikan.
+- Spesifik: Berapa persentase kegagalan BPJS di Poli X bulan ini?
+- Terukur: Berapa rata-rata waktu tunggu pendaftaran (detik/min)?
+- Dapat dicapai: Dapatkah mengurangi rate gagal 30% dalam 3 bulan?
+- Relevan: Apakah kegagalan terkait jam tertentu?
+- Batas waktu: Laporan mingguan untuk tindakan perbaikan.
 
 ## Lisensi
 
@@ -277,5 +288,5 @@ Pada README cantumkan screenshot chart (ambil screenshot dari aplikasi saat berj
   - Buatkan contoh skrip CI / GitHub Actions untuk deploy ke Streamlit Cloud (opsional).
   - Siapkan slide presentasi (.pptx) otomatis — saya bisa membuatkan file jika Anda mau.
 
-Mau saya lampirkan file `streamlit_app.py` dan `README.md` sebagai teks siap-copy (sudah di atas) — atau langsung saya buatkan file `.zip` / `.pptx` yang bisa Anda unduh? (kalau ingin file, saya akan membuatnya di respons berikutnya).
+Mau saya lampirkan file `streamlit.py` dan `README.md` sebagai teks siap-copy (sudah di atas) — atau langsung saya buatkan file `.zip` / `.pptx` yang bisa Anda unduh? (kalau ingin file, saya akan membuatnya di respons berikutnya).
 ```

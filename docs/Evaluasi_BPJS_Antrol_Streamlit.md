@@ -2,7 +2,7 @@
 
 ## Ringkasan
 
-Aplikasi Streamlit `streamlit_app.py` digunakan untuk menganalisis data pasien BPJS Add Antroll. Berikut adalah evaluasi terhadap tahapan proyek data science yang telah dilakukan dan yang masih perlu dikembangkan.
+Aplikasi Streamlit `streamlit.py` digunakan untuk menganalisis data pasien BPJS Add Antroll. Berikut adalah evaluasi terhadap tahapan proyek data science yang telah dilakukan dan yang masih perlu dikembangkan.
 
 ## 1. S.M.A.R.T Questions tentang pasien BPJS Add Antroll
 
