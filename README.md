@@ -64,13 +64,42 @@ Dashboard interaktif untuk monitoring pendaftaran BPJS (Add Antroll) — analisi
 
 > Jika nama kolom berbeda, app akan mencoba otomatis merename kolom umum. Untuk variasi ekstrem, buka `streamlit.py` dan sesuaikan fungsi `unify_columns`.
 
-## S.M.A.R.T Questions (contoh)
+## S.M.A.R.T Questions
 
-- **Spesifik**: Berapa persentase kegagalan BPJS di Poli X bulan ini?
-- **Terukur**: Berapa rata-rata waktu tunggu pendaftaran (detik/min)?
-- **Dapat dicapai**: Dapatkah mengurangi rate gagal 30% dalam 3 bulan?
-- **Relevan**: Apakah kegagalan terkait jam tertentu?
-- **Batas waktu**: Laporan mingguan untuk tindakan perbaikan.
+1. **Berapa jumlah total registrasi pasien BPJS per hari?**
+   - *Specific*: Mengukur jumlah registrasi harian
+   - *Measurable*: Dapat dihitung dari data tanggal registrasi
+   - *Achievable*: Data tersedia di dataset
+   - *Relevant*: Penting untuk mengetahui volume layanan
+   - *Time-bound*: Dapat dianalisis per hari, minggu, atau bulan
+
+2. **Berapa persentase keberhasilan registrasi BPJS per poliklinik?**
+   - *Specific*: Mengukur efektivitas registrasi per poliklinik
+   - *Measurable*: Dihitung sebagai rasio registrasi sukses terhadap total
+   - *Achievable*: Status registrasi tersedia di dataset
+   - *Relevant*: Penting untuk evaluasi kinerja layanan
+   - *Time-bound*: Dapat dianalisis dalam periode tertentu
+
+3. **Apa poliklinik dengan jumlah kunjungan tertinggi dan terendah?**
+   - *Specific*: Identifikasi poliklinik berdasarkan volume kunjungan
+   - *Measurable*: Dihitung berdasarkan jumlah registrasi per poliklinik
+   - *Achievable*: Nama poliklinik tersedia di dataset
+   - *Relevant*: Penting untuk alokasi sumber daya
+   - *Time-bound*: Dapat dianalisis dalam periode tertentu
+
+4. **Apa penyebab utama kegagalan registrasi BPJS?**
+   - *Specific*: Mengidentifikasi faktor-faktor yang menyebabkan kegagalan
+   - *Measurable*: Dihitung berdasarkan kategori keterangan error
+   - *Achievable*: Data keterangan error tersedia di dataset
+   - *Relevant*: Penting untuk perbaikan sistem
+   - *Time-bound*: Dapat dianalisis dalam periode tertentu
+
+5. **Bagaimana pola distribusi waktu registrasi pasien?**
+   - *Specific*: Mengidentifikasi jam-jam sibuk pendaftaran
+   - *Measurable*: Dihitung berdasarkan jam registrasi
+   - *Achievable*: Jam registrasi tersedia di dataset
+   - *Relevant*: Penting untuk manajemen antrian
+   - *Time-bound*: Dapat dianalisis harian/mingguan
 
 ## Visualisasi Data
 
