@@ -110,39 +110,46 @@ eda_mode = "Deskriptif" # Default value, will be set based on tab selection late
 
 # Tab 1: S.M.A.R.T Question & Data Wrangling
 with tab1:
-    st.subheader("🎯 S.M.A.R.T Questions (contoh)")
+    st.subheader("🎯 Tujuan Penelitian & Pertanyaan S.M.A.R.T")
     st.markdown("""
-    - **Spesifik**: Berapa persentase kegagalan BPJS di Poli X bulan ini?
-    - **Terukur**: Berapa rata-rata waktu tunggu pendaftaran (detik/min)?
-    - **Dapat dicapai**: Dapatkah mengurangi rate gagal 30% dalam 3 bulan?
-    - **Relevan**: Apakah kegagalan terkait jam tertentu?
-    - **Batas waktu**: Laporan mingguan untuk tindakan perbaikan.
+    Aplikasi ini dibuat untuk menganalisis data registrasi pasien BPJS Add Antroll.
+    Berikut adalah beberapa pertanyaan S.M.A.R.T yang menjadi dasar analisis ini:
+
+    1. **Berapa jumlah total registrasi pasien BPJS per hari?**
+       - *Specific*: Mengukur jumlah registrasi harian
+       - *Measurable*: Dapat dihitung dari data tanggal registrasi
+       - *Achievable*: Data tersedia di dataset
+       - *Relevant*: Penting untuk mengetahui volume layanan
+       - *Time-bound*: Dapat dianalisis per hari, minggu, atau bulan
+
+    2. **Berapa persentase keberhasilan registrasi BPJS per poliklinik?**
+       - *Specific*: Mengukur efektivitas registrasi per poliklinik
+       - *Measurable*: Dihitung sebagai rasio registrasi sukses terhadap total
+       - *Achievable*: Status registrasi tersedia di dataset
+       - *Relevant*: Penting untuk evaluasi kinerja layanan
+       - *Time-bound*: Dapat dianalisis dalam periode tertentu
+
+    3. **Apa poliklinik dengan jumlah kunjungan tertinggi dan terendah?**
+       - *Specific*: Identifikasi poliklinik berdasarkan volume kunjungan
+       - *Measurable*: Dihitung berdasarkan jumlah registrasi per poliklinik
+       - *Achievable*: Nama poliklinik tersedia di dataset
+       - *Relevant*: Penting untuk alokasi sumber daya
+       - *Time-bound*: Dapat dianalisis dalam periode tertentu
+
+    4. **Apa penyebab utama kegagalan registrasi BPJS?**
+       - *Specific*: Mengidentifikasi faktor-faktor yang menyebabkan kegagalan
+       - *Measurable*: Dihitung berdasarkan kategori keterangan error
+       - *Achievable*: Data keterangan error tersedia di dataset
+       - *Relevant*: Penting untuk perbaikan sistem
+       - *Time-bound*: Dapat dianalisis dalam periode tertentu
+
+    5. **Bagaimana pola distribusi waktu registrasi pasien?**
+       - *Specific*: Mengidentifikasi jam-jam sibuk pendaftaran
+       - *Measurable*: Dihitung berdasarkan jam registrasi
+       - *Achievable*: Jam registrasi tersedia di dataset
+       - *Relevant*: Penting untuk manajemen antrian
+       - *Time-bound*: Dapat dianalisis harian/mingguan
     """)
-    
-    st.markdown("---")
-    
-    st.subheader("📊 Visualisasi Data")
-    st.markdown("""
-    1. **KPI header** — menampilkan total record, jumlah sukses, jumlah gagal, avg wait (jika ada).
-    
-       - **Penjelasan**: Gambaran cepat kesehatan operasional registrasi BPJS.
-
-    2. **Bar chart Status** — jumlah `sudah` vs `gagal`.
-
-       - **Penjelasan**: Fokus mitigation pada kategori `gagal`.
-
-    3. **Line chart Tren Harian** — jumlah kunjungan per hari.
-
-       - **Penjelasan**: Memantau tren & efek perubahan kebijakan/maintenance.
-
-    4. **Top Poli** — total kunjungan vs gagal per poli.
-
-       - **Penjelasan**: Identifikasi poli yang membutuhkan intervensi.
-
-    5. **Distribusi Umur** — melihat profil pasien.
-       - **Penjelasan**: Memudahkan kebijakan pelayanan (mis. poli anak).
-    """)
-    
     st.markdown("---")
     
     # Data Wrangling Process
